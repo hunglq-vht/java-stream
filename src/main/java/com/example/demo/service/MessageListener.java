@@ -9,7 +9,6 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.client.WebSocketClient;
 import org.springframework.web.socket.client.standard.StandardWebSocketClient;
 
-import javax.annotation.PostConstruct;
 import java.net.URI;
 
 @Log4j2
@@ -22,13 +21,8 @@ public class MessageListener implements WebSocketHandler {
         this.webSocketClient = new StandardWebSocketClient();
     }
 
-    @PostConstruct
-    public void init() {
-        log.info("init app");
-        System.out.println("HELLO APP");
-    }
-
     public void connect(String url) {
+        System.out.println("Connecting");
         this.webSocketClient.doHandshake(this, String.valueOf(URI.create(url)));
     }
 
@@ -39,7 +33,7 @@ public class MessageListener implements WebSocketHandler {
     }
 
     @Override
-    public void handleMessage(WebSocketSession session, WebSocketMessage message) {
+    public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) {
         System.out.println("Received message from server " + message.getPayload());
     }
 
