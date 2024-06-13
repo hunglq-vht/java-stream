@@ -36,7 +36,7 @@ public class StatusListener {
                 connectorStatus.getTasks().forEach(connectorTask -> {
                     if (!connectorTask.getState().equals("RUNNING")
                             && connectorTask.getTrace() != null
-                            && connectorTask.getTrace().contains("ORA-00600")) {
+                            && !connectorTask.getTrace().contains("ORA-00600")) {
                         System.out.println("Sync all now");
                     }
                 });
